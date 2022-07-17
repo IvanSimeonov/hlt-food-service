@@ -22,6 +22,7 @@
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 		<easy-random.version>5.0.0</easy-random.version>
+		<spring-doc-openapi-ui.version>1.6.9</spring-doc-openapi-ui.version>
 	</properties>
 
 	<dependencies>
@@ -78,6 +79,11 @@
 			<artifactId>easy-random-core</artifactId>
 			<version>${easy-random.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${spring-doc-openapi-ui.version}</version>
 		</dependency>
 	</dependencies>
 
