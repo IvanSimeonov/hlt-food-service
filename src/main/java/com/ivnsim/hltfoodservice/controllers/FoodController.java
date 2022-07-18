@@ -1,6 +1,7 @@
 package com.ivnsim.hltfoodservice.controllers;
 
 import com.ivnsim.hltfoodservice.domains.FoodDTO;
+import com.ivnsim.hltfoodservice.domains.FoodPageDTO;
 import com.ivnsim.hltfoodservice.services.FoodService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,12 @@ public class FoodController {
         return ResponseEntity.created(location).build();
     }
 
+    @Operation(summary = "Add all new foods")
+    @PostMapping("/all")
+    public void createFoods(@RequestBody List<FoodDTO> foodDTO) {
+        this.foodService.saveAll(foodDTO);
+    }
+
     @Operation(summary = "Retrieve a food by its id")
     @GetMapping("/{id}")
     public FoodDTO findFoodById(@PathVariable("id") Long id) {
@@ -44,6 +51,16 @@ public class FoodController {
     @GetMapping
     public List<FoodDTO> findAllFoods() {
         return this.foodService.findAllFoods();
+    }
+
+    @Operation(summary = "Retrieve all existing foods in pages and sorted by specified field")
+    @GetMapping("/pages")
+    public FoodPageDTO findAllFoods(
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "") String searchWord) {
+        return this.foodService.findFoodPage(pageNumber, pageSize, sortBy, searchWord);
     }
 
     @Operation(summary = "Update an existing food")
