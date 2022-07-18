@@ -6,10 +6,9 @@
 
 ## Docker Image
 
-### Run: mvn clean
+### Build: docker build --tag=ivannicksim/hlt-food-service:latest .
 
-### Run: mvn package
+### Push: docker push ivannicksim/hlt-food-service:latest
 
-### Run: docker build --tag=ivannicksim/hlt-food-service:latest .
+### Run: docker run -p 8080:8080 ivannicksim/hlt-food-service:latest
 
-### Run: docker push ivannicksim/hlt-food-service:latest 
