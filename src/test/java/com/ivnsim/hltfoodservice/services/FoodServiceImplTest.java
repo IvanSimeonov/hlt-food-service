@@ -40,7 +40,7 @@ class FoodServiceImplTest {
         foodService = new FoodServiceImpl(foodRepository);
     }
 
-    @DisplayName("Should_Succeed_When_FoodIdFoundInDB")
+    @DisplayName("FindById_Should_Succeed_When_FoodIdFoundInDB")
     @Test
     void findByIdSucceeds() {
         when(this.foodRepository.findById(anyLong())).thenReturn(Optional.of(this.food));
@@ -48,7 +48,7 @@ class FoodServiceImplTest {
         assertEquals(this.food.getId(), this.foodService.findById(this.food.getId()).getId());
     }
 
-    @DisplayName("Should_Throw_Exception_When_FoodIdNotFoundInDB")
+    @DisplayName("FindById_Should_Throw_Exception_When_FoodIdNotFoundInDB")
     @Test
     void findByIdThrowsException() {
         Exception exception = null;
@@ -61,6 +61,5 @@ class FoodServiceImplTest {
         assertNotNull(exception);
         assertTrue(exception.getMessage().contains(String.format(FOOD_WITH_ID_NOT_FOUND_EXCEPTION, FOOD_NON_EXISTING_ID)));
     }
-
 
 }
