@@ -1,0 +1,1 @@
+INSERT INTO "food" (id, brand_name, description, calories) VALUES (1, 'Amix', 'VegePro', 88);
