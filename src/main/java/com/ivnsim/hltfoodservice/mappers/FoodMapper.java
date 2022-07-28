@@ -5,6 +5,7 @@ import com.ivnsim.hltfoodservice.domains.FoodPageDTO;
 import com.ivnsim.hltfoodservice.domains.FoodTableViewDTO;
 import com.ivnsim.hltfoodservice.models.Food;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ public interface FoodMapper {
 
     Food foodDTOtoFood(FoodDTO foodDTO);
 
+    @Mapping(target = "id", ignore = true)
     Food updateFoodFromFoodDTO(FoodDTO foodDTO, @MappingTarget Food food);
 
     default FoodPageDTO pageToPageDTO(Page<FoodTableViewDTO> foods) {

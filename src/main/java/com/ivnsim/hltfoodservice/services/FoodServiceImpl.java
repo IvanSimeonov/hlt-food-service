@@ -62,7 +62,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public FoodPageDTO findFoodPage(Integer pageNumber, Integer pageSize, String sortBy, String searchWord) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
         return FoodMapper.INSTANCE.pageToPageDTO(this.foodRepository.findFoodsPage(searchWord, pageable));
 
     }

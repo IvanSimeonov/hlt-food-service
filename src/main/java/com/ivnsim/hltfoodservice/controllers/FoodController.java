@@ -4,6 +4,7 @@ import com.ivnsim.hltfoodservice.domains.FoodDTO;
 import com.ivnsim.hltfoodservice.domains.FoodPageDTO;
 import com.ivnsim.hltfoodservice.services.FoodService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/foods")
+@CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class FoodController {
 
     private final FoodService foodService;
@@ -23,8 +26,9 @@ public class FoodController {
     }
 
     @Operation(summary = "Add new food")
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Void> createFood(@RequestBody FoodDTO foodDTO) {
+        log.warn("Food " + foodDTO);
         this.foodService.save(foodDTO);
 
         URI location = ServletUriComponentsBuilder
@@ -56,10 +60,14 @@ public class FoodController {
     @Operation(summary = "Retrieve all existing foods in pages and sorted by specified field")
     @GetMapping("/pages")
     public FoodPageDTO findAllFoods(
-            @RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "") String searchWord) {
+            @RequestParam(defaultValue = "0", name = "pageNumber") Integer pageNumber,
+            @RequestParam(defaultValue = "10", name = "pageSize") Integer pageSize,
+            @RequestParam(defaultValue = "id", name = "sortBy") String sortBy,
+            @RequestParam(defaultValue = "", name = "searchWord") String searchWord) {
+        log.warn("Page Number: " + pageNumber );
+        log.warn("Page Size: " + pageSize );
+        log.warn("Sort By: " + sortBy );
+        log.warn("Search Word: " + searchWord );
         return this.foodService.findFoodPage(pageNumber, pageSize, sortBy, searchWord);
     }
 

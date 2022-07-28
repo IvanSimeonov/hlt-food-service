@@ -16,4 +16,10 @@ public class FoodTableViewDTO {
     private String description;
 
     private Long calories;
+
+    private Long proteins;
+
+    private Long totalCarbohydrates;
+
+    private Long totalFats;
 }
