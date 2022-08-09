@@ -27,6 +27,24 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - spring
+  hlt-discovery-service:
+    image: ivannicksim/hlt-discovery-service:latest
+    container_name: hlt-discovery-service
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
   hlt-food-service:
     image: ivannicksim/hlt-food-service:latest
     container_name: hlt-food-service
@@ -38,6 +56,34 @@ services:
       - spring
       - postgres
     depends_on:
+      - zipkin
+      - hlt-discovery-service
+      - postgres
+  hlt-bmr-calc-service:
+    image: ivannicksim/hlt-bmr-calc-service:latest
+    container_name: hlt-bmr-calc-service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - hlt-discovery-service
+      - postgres
+  hlt-bmi-calc-service:
+    image: ivannicksim/hlt-bmi-calc-service:latest
+    container_name: hlt-bmi-calc-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - hlt-discovery-service
       - postgres
 networks:
   postgres:
