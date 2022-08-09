@@ -45,7 +45,7 @@ services:
       - spring
     depends_on:
       - zipkin
-  hly-api-gateway-service:
+  hlt-api-gateway-service:
     image: ivannicksim/hlt-api-gateway-service:latest
     container_name: hlt-api-gateway-service
     ports:
@@ -53,7 +53,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
-      -spring
+      - spring
     depends_on:
       - zipkin
       - hlt-discovery-service
