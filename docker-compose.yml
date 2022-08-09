@@ -45,6 +45,18 @@ services:
       - spring
     depends_on:
       - zipkin
+  hly-api-gateway-service:
+    image: ivannicksim/hlt-api-gateway-service:latest
+    container_name: hlt-api-gateway-service
+    ports:
+      - "8088:8088"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      -spring
+    depends_on:
+      - zipkin
+      - hlt-discovery-service
   hlt-food-service:
     image: ivannicksim/hlt-food-service:latest
     container_name: hlt-food-service
