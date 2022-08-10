@@ -71,6 +71,7 @@ services:
     depends_on:
       - zipkin
       - hlt-discovery-service
+      - hlt-api-gateway-service
       - postgres
   hlt-bmr-calc-service:
     image: ivannicksim/hlt-bmr-calc-service:latest
@@ -84,8 +85,9 @@ services:
     depends_on:
       - zipkin
       - hlt-discovery-service
-      - postgres
+      - hlt-api-gateway-service
       - hlt-food-service
+      - postgres
   hlt-bmi-calc-service:
     image: ivannicksim/hlt-bmi-calc-service:latest
     container_name: hlt-bmi-calc-service
@@ -98,6 +100,24 @@ services:
     depends_on:
       - zipkin
       - hlt-discovery-service
+      - hlt-api-gateway-service
+      - hlt-food-service
+      - hlt-bmr-calc-service
+      - postgres
+  hlt-frontend-angular-service:
+    image: ivannicksim/hlt-frontend-angular-service
+    container_name: hlt-frontend-angular-service
+    ports:
+      - "4200:80"
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - hlt-discovery-service
+      - hlt-api-gateway-service
+      - hlt-food-service
+      - hlt-bmr-calc-service
+      - hlt-bmi-calc-service
       - postgres
 networks:
   postgres:
