@@ -1,3 +1,4 @@
+version: "3.9"
 services:
   postgres:
     container_name: postgres
@@ -49,7 +50,7 @@ services:
     image: ivannicksim/hlt-api-gateway-service:latest
     container_name: hlt-api-gateway-service
     ports:
-      - "8088:8088"
+      - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
@@ -84,6 +85,7 @@ services:
       - zipkin
       - hlt-discovery-service
       - postgres
+      - hlt-food-service
   hlt-bmi-calc-service:
     image: ivannicksim/hlt-bmi-calc-service:latest
     container_name: hlt-bmi-calc-service
@@ -102,7 +104,6 @@ networks:
     driver: bridge
   spring:
     driver: bridge
-
 volumes:
   postgres:
   pgadmin:
